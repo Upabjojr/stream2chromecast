@@ -67,6 +67,18 @@ To play a supported file from a URL.
    
         stream2chromecast.py -stop  
 
+ - position playback to 15 minutes and 30 seconds 
+        stream2chromecast.py -position 15:30
+
+	Note: this does currently not work with file streaming, as the Python
+basic HTTP server appears not to support changing the reading position. It can
+be used with streams from an URL.  It won't work with the `-transcode` option
+neither.
+
+  - position playback to 1800 second (30 minutes)
+
+        stream2chromecast.py -position 1800
+
 
 ###Volume control
 

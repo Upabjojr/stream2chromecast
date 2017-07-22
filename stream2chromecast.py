@@ -664,7 +664,24 @@ def list_devices():
     
     for device_ip in device_ips:
         print device_ip, ":", cc_device_finder.get_device_name(device_ip)
-        
+
+def seek_to_position(position, device_name=None):
+    if isinstance(position, (str,)):
+        if ":" in position:
+            l = position.split(":")
+            l.reverse()
+            cum_seconds = 0
+            factor = 1
+            for i in l:
+                print(i)
+                cum_seconds += int(i)*factor
+                factor *= 60
+            position = cum_seconds
+        else:
+            position = int(position)
+
+    print("Seeking to position {0} seconds.".format(position))
+    CCMediaController(device_name=device_name).seek_to_position(position) 
 
 def print_ident():
     """ display initial messages """
@@ -788,6 +805,10 @@ def run():
         
     elif args[0] == "-devicelist":
         list_devices()
+
+    elif args[0] == "-position":
+        position = args[1]
+        seek_to_position(position, device_name=device_name)
             
     else:
         play(args[0], device_name=device_name, server_port=server_port, subtitles=subtitles,

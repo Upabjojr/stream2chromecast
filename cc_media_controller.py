@@ -111,8 +111,7 @@ class CCMediaController():
         
         self.sock.write(msg)
 
-        
-        
+
     def read_message(self):
         """ read a complete message from the device """
 
@@ -181,7 +180,7 @@ class CCMediaController():
         
         self.request_id += 1
         data['requestId'] = self.request_id
-        
+
         self.send_data(namespace, data)
         
         return self.get_response(self.request_id)
@@ -426,7 +425,14 @@ class CCMediaController():
         """ stop """
         self.control("STOP")         
         
-        
+    def seek_to_position(self, position):
+        """ seek to position """
+        self.control("SEEK",
+            {
+                "currentTime": position,
+                "resumeState": "PLAYBACK_START",
+            }
+        )
         
     def set_volume(self, level):
         """ set the receiver volume - a float value in level for absolute level or "+" / "-" indicates up or down"""
